@@ -1,22 +1,28 @@
 import { createAppContainer } from 'react-navigation';
-import { createDrawerNavigator } from 'react-navigation-drawer'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createStackNavigator } from 'react-navigation-stack';
 //createSwitchNavigator navegação em programação pura. nao mostra interfaces pro usuario por padrão
 
-//Menu
-import MainPage from '../components/pages/Main'
-import Todolist from '../components/pages/Todolist'
+//Auth
+import Signin from '../components/pages/Auth/Signin'
+import Signup from '../components/pages/Auth/Signup'
 
-import React, { Component } from 'react';
+//Comptime
+import Comptime from '../components/pages/Comptime'
+
+import React from 'react';
 
 import Navbar from '../components/shared/Layout/Navbar'
 import Drawer from '../components/shared/Layout/Drawer'
 
-const StackNavigator = createStackNavigator({
-    MainPage,
-    Todolist,   
+const AuthenticationNavigator = createStackNavigator({
+    Signin: Signin,
+    Signup: Signup,
+    Comptime: {
+        screen: Comptime
+    },   
   }, {
-        initialRouteName: 'MainPage',
+        initialRouteName: 'Signin',
           transparentCard:true, //faz o componente que envolve os componentes de navegação aparecer
       defaultNavigationOptions: ({ navigation }) => ({
         headerTitle: <Navbar nav={navigation}/>    
@@ -24,11 +30,13 @@ const StackNavigator = createStackNavigator({
 });
 
   const AppNavigator = createDrawerNavigator({
-    Main: StackNavigator,
-    MainPage,
-    Todolist,  
-}, {
-    drawerWidth: 300,
+    Main: {
+        screen: AuthenticationNavigator,
+    },
+    Comptime: {
+        screen: Comptime
+    },
+}, {drawerWidth: 300,
     drawerLockMode: 'locked-closed',
     contentComponent: props => <Drawer nav={props} />
     })
@@ -36,5 +44,6 @@ const StackNavigator = createStackNavigator({
 const Routes = createAppContainer(
     AppNavigator
 );
+
 
 export default Routes;
