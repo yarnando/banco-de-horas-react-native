@@ -30,7 +30,6 @@ const Signup = (props) => {
   })      
 
     return (
-      <View style={commonStyles.container}>
         <Formik
           initialValues={{ 
                           email: props.auth.user.email, 
@@ -96,7 +95,6 @@ const Signup = (props) => {
             </View>
           )}
         </Formik>        
-    </View>
     );
 
 }
