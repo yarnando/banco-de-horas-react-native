@@ -18,7 +18,12 @@ function* signUp() {
     yield put(globalCreators.loading(false))
     yield put(authCreators.user({ email: user.email, password: '', userId: userLogged.user.uid }))
     yield delay(1500)  
-    yield put(authCreators.userLogged(true));
+    yield put({
+        type: authTypes.USER_LOGGED,
+        payload: {
+          userLogged: true
+        }
+      });   
     yield put(globalCreators.message({ type: "", text: "" }));      
     yield put(NavigationActions.navigate({ routeName: 'Comptime' })
     );      
@@ -48,11 +53,16 @@ function* signIn() {
         yield put(globalCreators.loading(true))
         let userLogged = yield call(rsfb.auth.signInWithEmailAndPassword, user.email, user.password);
         yield put(globalCreators.loading(false))  
-        yield put(authCreators.userLogged(true));
-        yield put(authCreators.user({ email: user.email, password: '', userId: userLogged.user.uid }))      
-    yield put(
-        NavigationActions.navigate({ routeName: 'Comptime' })
-    );          
+        yield put({
+            type: authTypes.USER_LOGGED,
+            payload: {
+              userLogged: true
+            }
+          });   
+        yield put(authCreators.user({ email: user.email, password: '', userId: userLogged.user.uid }))           
+        yield put(
+            NavigationActions.navigate({ routeName: 'Comptime' })
+        );          
       } catch (error) {
         if(error.code == 'auth/user-not-found') {
             yield put(globalCreators.message({ type: "danger", text: `Usuário não encontrado.` }));
@@ -70,25 +80,35 @@ function* signIn() {
 function* logOut() {
 
     try {
-
-        yield put(globalCreators.loading(true))
+        yield put({ type: globalTypes.LOADING });
         yield call(rsfb.auth.signOut);
-        yield put(globalCreators.loading(false))
-        // yield put(globalCreators.message({ type: "positive", text: "Logged out!" }));
-        yield put(authCreators.user({ email: '', password: '', userId: '' }))           
-        yield put(globalCreators.message({ type: "", text: "" }));            
-        yield put(authCreators.userLogged(false));
-        yield put(push('/signin'))
-
+        yield put(globalCreators.message({ type: "positive", text: "Logged out!" }))
+        yield put({
+          type: authTypes.USER,
+          payload: {
+            email: '',
+            password: ''
+          }
+        });
+        yield put({ type: globalTypes.LOADING });
+    
+        yield put({
+          type: authTypes.USER_LOGGED,
+          payload: {
+            userLogged: false
+          }
+        });
+        yield put(
+            StackActions.popToTop()
+        );          
+        yield put(
+            NavigationActions.navigate({ routeName: 'Signin' })
+        );          
       } catch (error) {
-
-        yield put(globalCreators.message({ type: "danger", text: error }));
+        yield put(globalCreators.message({ type: "danger", text: "Error logging out: " + error }))
         yield put({ type: globalTypes.ERROR });
-        yield delay(3000)  
-        yield put(globalCreators.message({ type: "", text: "" }));   
-        yield put(globalCreators.loading(false))        
-
       }
+
 }
 
 export default [

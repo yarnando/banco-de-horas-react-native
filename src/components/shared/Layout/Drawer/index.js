@@ -4,7 +4,9 @@ import { NavigationActions, StackActions } from 'react-navigation';
 import {View, TouchableOpacity, Text, ScrollView} from 'react-native';
 import {styles} from './styles';
 
-import {connect} from 'react-redux';
+import { creators as authActions } from '../../../../store/ducks/auth'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -13,12 +15,16 @@ class Drawer extends Component {
     return (
       <ScrollView contentContainerStyle={styles.drawerContainer}>
         <View styles={styles.drawerContent}>
-          <View style={styles.userArea}>
-            <View style={styles.userIcon}>
-              <Icon name="user-circle-o" size={59} />
-            </View>
-            <Text style={styles.userText}> emailtest@gmail.com</Text>
-          </View>
+            {!!this.props.userState.email && 
+                (
+                <View style={styles.userArea}>
+                    <View style={styles.userIcon}>
+                        <Icon name="user-circle-o" size={59} />
+                    </View>
+                    <Text style={styles.userText}> {this.props.userState.email}</Text>
+                </View>                            
+                )
+            }      
           <TouchableOpacity
                   onPress={() =>
                     this.props.nav.navigation.dispatch(StackActions.reset({
@@ -83,7 +89,16 @@ class Drawer extends Component {
 }
 
 const mapStateToProps = state => ({
-  state,
-});
+    userState: state.auth.user,
+    userLoggedState: state.auth.userLogged,
+    loadingState: state.global.loading,
+    message: state.global.message,
+  });
+  
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(authActions, dispatch);
 
-export default connect(mapStateToProps)(Drawer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Drawer);
