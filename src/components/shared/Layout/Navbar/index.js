@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 class Navbar extends React.Component {
     render() {
         return <View style={ styles.navbarContainer }>
-                <TouchableOpacity
+                {this.props.userLoggedState && <TouchableOpacity
                     onPress={() => this.props.nav.openDrawer()}
                     title="Info"
                     style={styles.hamburgerBtn}
@@ -19,17 +19,16 @@ class Navbar extends React.Component {
                         size={30} 
                         color='#000' 
                     /> 
-                </TouchableOpacity>
+                </TouchableOpacity>}
                  
-                <Text style={ styles.title }>MyStore</Text>           
+                <Text style={ styles.title }>Banco de Horas</Text>           
         </View>     
     }
   }
 
   
 const mapStateToProps = state => ({
-    state
-    // userLoggedState: state.auth.userLogged,
+    userLoggedState: state.auth.userLogged,
 });
 
 export default connect(

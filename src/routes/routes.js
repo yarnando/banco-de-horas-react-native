@@ -9,35 +9,52 @@ import Signup from '../components/pages/Auth/Signup'
 
 //Comptime
 import Comptime from '../components/pages/Comptime'
+import Teste from '../components/pages/Teste'
 
 import React from 'react';
 
 import Navbar from '../components/shared/Layout/Navbar'
 import Drawer from '../components/shared/Layout/Drawer'
 
-const AuthenticationNavigator = createStackNavigator({
+const AuthStack = createStackNavigator({
     Signin: Signin,
-    Signup: Signup,
-    Comptime: {
-        screen: Comptime
-    },   
+    Signup: Signup,   
   }, {
         initialRouteName: 'Signin',
-          transparentCard:true, //faz o componente que envolve os componentes de navegação aparecer
+        transparentCard:true, //faz o componente que envolve os componentes de navegação aparecer
       defaultNavigationOptions: ({ navigation }) => ({
+        headerTitle: <Navbar nav={navigation}/>,
+        headerBackTitleVisible: false,    
+    })
+});
+
+const MainStack = createStackNavigator({
+    Comptime: {
+        screen: Comptime,
+    },    
+    Teste: {
+        screen: Teste,
+    },    
+  }, {
+        initialRouteName: 'Comptime',
+        transparentCard:true, //faz o componente que envolve os componentes de navegação aparecer
+      defaultNavigationOptions: ({ navigation }) => ({
+          headerLeft: null,
         headerTitle: <Navbar nav={navigation}/>    
     })
 });
 
   const AppNavigator = createDrawerNavigator({
-    Main: {
-        screen: AuthenticationNavigator,
+    AuthStack: {
+        screen: AuthStack,     
+        navigationOptions: {
+            drawerLockMode: 'locked-closed',
+        },        
     },
-    Comptime: {
-        screen: Comptime
-    },
+    MainStack: {
+        screen: MainStack,
+    },   
 }, {drawerWidth: 300,
-    drawerLockMode: 'locked-closed',
     contentComponent: props => <Drawer nav={props} />
     })
 

@@ -1,5 +1,5 @@
 import { takeLatest, put, call, select, delay } from "redux-saga/effects";
-import { StackActions, NavigationActions } from 'react-navigation'
+import { StackActions, NavigationActions, DrawerActions } from 'react-navigation'
 import { types as globalTypes, creators as globalCreators } from "../../ducks/_global";
 import { types as authTypes, creators as authCreators } from "../../ducks/auth";
 import rsfb from "../../services/firebaseConfig";
@@ -20,14 +20,7 @@ function* signUp() {
     yield delay(1500)  
     yield put(authCreators.userLogged(true));
     yield put(globalCreators.message({ type: "", text: "" }));      
-    yield put(
-      StackActions.reset({
-        index: 0,
-        key: null,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Comptime' })
-        ],
-      }),
+    yield put(NavigationActions.navigate({ routeName: 'Comptime' })
     );      
 
   } catch (error) {
@@ -58,13 +51,7 @@ function* signIn() {
         yield put(authCreators.userLogged(true));
         yield put(authCreators.user({ email: user.email, password: '', userId: userLogged.user.uid }))      
     yield put(
-      StackActions.reset({
-        index: 0,
-        key: null,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Comptime' })
-        ],
-      }),
+        NavigationActions.navigate({ routeName: 'Comptime' })
     );          
       } catch (error) {
         if(error.code == 'auth/user-not-found') {

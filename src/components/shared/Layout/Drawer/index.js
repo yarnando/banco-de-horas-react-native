@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 import {View, TouchableOpacity, Text, ScrollView} from 'react-native';
 import {styles} from './styles';
@@ -18,16 +19,17 @@ class Drawer extends Component {
             </View>
             <Text style={styles.userText}> emailtest@gmail.com</Text>
           </View>
-          {this.props.nav.navigation.state.routes.map(item => {
-            if (item.routeName != 'Main')
-              return (
-                <TouchableOpacity
+          <TouchableOpacity
                   onPress={() =>
-                    this.props.nav.navigation.navigate({
-                      routeName: item.routeName,
-                    })
+                    this.props.nav.navigation.dispatch(StackActions.reset({
+                        index: 0,
+                        key: null,
+                        actions: [
+                          NavigationActions.navigate({ routeName: 'Comptime' })
+                        ],
+                      }) 
+                    )                    
                   }
-                  key={item.key}
                   style={styles.drawerItem}>
                   <View>
                     <Icon
@@ -36,13 +38,32 @@ class Drawer extends Component {
                       size={23}
                     />
                   </View>
-                  <Text style={styles.drawerItemText}>{item.routeName}</Text>
+                  <Text style={styles.drawerItemText}>{`Comptime`}</Text>
                 </TouchableOpacity>
-              );
-          })}
+          <TouchableOpacity
+                  onPress={() =>
+                    this.props.nav.navigation.dispatch(StackActions.reset({
+                        index: 0,
+                        key: null,
+                        actions: [
+                          NavigationActions.navigate({ routeName: 'Teste' })
+                        ],
+                      })
+                    )               
+                  }
+                  style={styles.drawerItem}>
+                  <View>
+                    <Icon
+                      style={styles.itemIcon}
+                      name="arrow-right"
+                      size={23}
+                    />
+                  </View>
+                  <Text style={styles.drawerItemText}>{`Teste`}</Text>
+                </TouchableOpacity>
         </View>
 
-        {/* <View style={ styles.drawerFooter}>
+        <View style={ styles.drawerFooter}>
                     {!!this.props.userLoggedState && 
                         (
                             <TouchableOpacity style={styles.drawerItem}
@@ -55,7 +76,7 @@ class Drawer extends Component {
                                 </Text>                                        
                             </TouchableOpacity>                            
                         )}
-                </View> */}
+                </View>
       </ScrollView>
     );
   }
