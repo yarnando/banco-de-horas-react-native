@@ -9,7 +9,7 @@ import Signup from '../components/pages/Auth/Signup'
 
 //Comptime
 import Comptime from '../components/pages/Comptime'
-import Teste from '../components/pages/Teste'
+// import Teste from '../components/pages/Teste'
 
 import React from 'react';
 
@@ -32,9 +32,9 @@ const MainStack = createStackNavigator({
     Comptime: {
         screen: Comptime,
     },    
-    Teste: {
-        screen: Teste,
-    },    
+    // Teste: {
+    //     screen: Teste,
+    // },    
   }, {
         initialRouteName: 'Comptime',
         transparentCard:true, //faz o componente que envolve os componentes de navegação aparecer
