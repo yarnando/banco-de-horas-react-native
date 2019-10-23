@@ -46,27 +46,6 @@ class Drawer extends Component {
                   </View>
                   <Text style={styles.drawerItemText}>{`Comptime`}</Text>
                 </TouchableOpacity>
-          <TouchableOpacity
-                  onPress={() =>
-                    this.props.nav.navigation.dispatch(StackActions.reset({
-                        index: 0,
-                        key: null,
-                        actions: [
-                          NavigationActions.navigate({ routeName: 'Teste' })
-                        ],
-                      })
-                    )               
-                  }
-                  style={styles.drawerItem}>
-                  <View>
-                    <Icon
-                      style={styles.itemIcon}
-                      name="arrow-right"
-                      size={23}
-                    />
-                  </View>
-                  <Text style={styles.drawerItemText}>{`Teste`}</Text>
-                </TouchableOpacity>
         </View>
 
         <View style={ styles.drawerFooter}>
