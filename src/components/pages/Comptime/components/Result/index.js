@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 // import { Container } from './styles';
 
-class Comptime extends Component {
+class Result extends Component {
   render() {
     return <div />;
   }
@@ -19,4 +19,4 @@ const mapStateToProps = state => ({});
 export default connect(
   mapStateToProps,
   // mapDispatchToProps
-)(Comptime);
+)(Result);
