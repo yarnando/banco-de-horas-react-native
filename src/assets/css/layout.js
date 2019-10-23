@@ -15,6 +15,12 @@ export const container = {
     elevation: 5,                  
 }
 
+export const verticalCenter = {
+    marginTop: -50,
+    flex: 1,
+    justifyContent: 'center',    
+}
+
 export const sectionHeaderContainer = {
     flexDirection: 'row'
 }

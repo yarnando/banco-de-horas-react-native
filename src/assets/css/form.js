@@ -1,5 +1,6 @@
 export const formGroup = {
     marginHorizontal: 5,    
+    marginVertical: 5,    
 }
 
 export const label = {

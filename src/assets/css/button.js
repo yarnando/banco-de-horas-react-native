@@ -4,7 +4,7 @@ export const button = {
     fontFamily: 'Lato',
     fontWeight: '100',
     backgroundColor: 'white',
-    marginHorizontal: 5,
+    // marginHorizontal: 5,
     marginVertical: 5,
     borderRadius: 5,
     flexDirection: 'row',

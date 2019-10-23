@@ -39,60 +39,62 @@ const Signup = (props) => {
           enableReinitialize={true}
         >
           {formikProps => (
-            <View style={commonStyles.container}>
-              <View>
-                <View style={commonStyles.sectionHeaderContainer}>
-                  <Icon name="arrow-circle-right" 
-                        size={23} />
-                  <Text style={commonStyles.sectionHeaderText}>Cadastro</Text>
+              <View style={commonStyles.verticalCenter}>
+                <View style={commonStyles.container}>
+                    <View>
+                        <View style={commonStyles.sectionHeaderContainer}>
+                        <Icon name="arrow-circle-right" 
+                                size={23} />
+                        <Text style={commonStyles.sectionHeaderText}>Cadastro</Text>
+                        </View>
+                    </View>
+                    <View>
+                        <View style={commonStyles.formGroup}>
+                        <Text style={commonStyles.label}>Email</Text>
+                        <TextInput
+                            keyboardType='email-address'
+                            style={[commonStyles.input, formikProps.errors.email && commonStyles.inputError]}
+                            placeholder="Digite seu email"
+                            placeholderTextColor="#999"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            underlineColorAndroid="transparent"
+                            value={props.auth.user.email}
+                            onChangeText={v => this.handleInputChange(formikProps, v, 'email')}/>    
+                            {formikProps.errors.email && <Text style={commonStyles.redText}>{formikProps.errors.email}</Text>}          
+                        </View>
+                        <View style={commonStyles.formGroup}>
+                        <Text style={commonStyles.label}>Senha</Text>
+                        <TextInput
+                            style={[commonStyles.input, formikProps.errors.password && commonStyles.inputError]}
+                            placeholder="Digite sua senha"
+                            placeholderTextColor="#999"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            secureTextEntry={true}
+                            underlineColorAndroid="transparent"
+                            value={props.auth.user.password}
+                            onChangeText={(v) => this.handleInputChange(formikProps, v, 'password')}/>  
+                            {formikProps.errors.password && <Text style={commonStyles.redText}>{formikProps.errors.password}</Text>}            
+                        </View>
+                        <View style={commonStyles.formGroup}>
+                        <TouchableOpacity 
+                                style={[commonStyles.buttonPrimary, Object.keys(formikProps.errors).length && commonStyles.disabledButton]}
+                                disabled={Object.keys(formikProps.errors).length}
+                                key={'cadastrar'} 
+                                onPress={() => props.signUp()}>
+                                <Text style={commonStyles.whiteText}>Cadastrar</Text>
+                        </TouchableOpacity>            
+                        <TouchableOpacity 
+                                style={commonStyles.buttonPrimary}
+                                key={'jacadastrado'} 
+                                onPress={() => props.navigation.navigate("Signin")}>
+                                <Text style={commonStyles.whiteText}>Já possuo cadastro</Text>
+                        </TouchableOpacity>            
+                        </View>
+                    </View>
                 </View>
               </View>
-              <View>
-                <View style={commonStyles.formGroup}>
-                  <Text style={commonStyles.label}>Email</Text>
-                  <TextInput
-                    keyboardType='email-address'
-                    style={[commonStyles.input, formikProps.errors.email && commonStyles.inputError]}
-                    placeholder="Digite seu email"
-                    placeholderTextColor="#999"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    underlineColorAndroid="transparent"
-                    value={props.auth.user.email}
-                    onChangeText={v => this.handleInputChange(formikProps, v, 'email')}/>    
-                    {formikProps.errors.email && <Text style={commonStyles.redText}>{formikProps.errors.email}</Text>}          
-                </View>
-                <View style={commonStyles.formGroup}>
-                  <Text style={commonStyles.label}>Senha</Text>
-                  <TextInput
-                    style={[commonStyles.input, formikProps.errors.password && commonStyles.inputError]}
-                    placeholder="Digite sua senha"
-                    placeholderTextColor="#999"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    secureTextEntry={true}
-                    underlineColorAndroid="transparent"
-                    value={props.auth.user.password}
-                    onChangeText={(v) => this.handleInputChange(formikProps, v, 'password')}/>  
-                    {formikProps.errors.password && <Text style={commonStyles.redText}>{formikProps.errors.password}</Text>}            
-                </View>
-                <View style={commonStyles.formGroup}>
-                  <TouchableOpacity 
-                        style={[commonStyles.buttonPrimary, Object.keys(formikProps.errors).length && commonStyles.disabledButton]}
-                        disabled={Object.keys(formikProps.errors).length}
-                        key={'cadastrar'} 
-                        onPress={() => props.signUp()}>
-                        <Text style={commonStyles.whiteText}>Cadastrar</Text>
-                  </TouchableOpacity>            
-                  <TouchableOpacity 
-                        style={commonStyles.buttonPrimary}
-                        key={'jacadastrado'} 
-                        onPress={() => props.navigation.navigate("Signin")}>
-                        <Text style={commonStyles.whiteText}>Já possuo cadastro</Text>
-                  </TouchableOpacity>            
-                </View>
-              </View>
-            </View>
           )}
         </Formik>        
     );
