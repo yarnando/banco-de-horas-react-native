@@ -4,32 +4,40 @@ import { types as comptimeTypes } from "../../ducks/comptime";
 import { creators as comptimeCreators } from "../../ducks/comptime";
 import rsfb from "../../services/firebaseConfig";
 
+import { Alert } from 'react-native'
+
 function* getComptimeList(action) {
   yield put(comptimeCreators.setComptimeList([]));
   let { idUsuario, ano, mes } = action.payload;
   yield put(globalCreators.loading(true));
-  const querySnapshot = yield call(
-    rsfb.firestore.getCollection,
-    `usuarios/${idUsuario}/${ano}${mes}`
-  );
-  let comptimeList = [];
-  let comptimeId = "";
-  querySnapshot.forEach(res => {
-    let comptime = res.data().comptimeList;
-    comptimeId = res.id;
-    comptimeList = [...comptimeList, ...comptime];
-  });
-  // console.log(comptimeId)
-  // console.log(comptimeList)
-  if (!!comptimeList.length) {
-    yield put(comptimeCreators.setComptimeListId(comptimeId));
-    yield put(comptimeCreators.setComptimeList(comptimeList));
-    yield calcTotalHoursBank(comptimeList);
-  } else {
-    console.log("no comptimelist, creating a new one");
-    yield createNewComptimeList(action, idUsuario, ano, mes);
+  try {
+    const querySnapshot = yield call(
+        rsfb.firestore.getCollection,
+        `usuarios/${idUsuario}/${ano}${mes}`
+      );
+      let comptimeList = [];
+      let comptimeId = "";
+      querySnapshot.forEach(res => {
+        let comptime = res.data().comptimeList;
+        comptimeId = res.id;
+        comptimeList = [...comptimeList, ...comptime];
+      });
+      // Alert.alert(comptimeId)
+      Alert.alert(JSON.stringify(comptimeList))
+      if (!!comptimeList.length) {
+        yield put(comptimeCreators.setComptimeListId(comptimeId));
+        yield put(comptimeCreators.setComptimeList(comptimeList));
+        yield calcTotalHoursBank(comptimeList);
+      } else {
+        Alert.alert("no comptimelist, creating a new one");
+        yield createNewComptimeList(action, idUsuario, ano, mes);
+      }
+      yield put(globalCreators.loading(false));      
+  } catch (error) {
+    Alert.alert(error);
+    yield put(globalCreators.loading(false));    
   }
-  yield put(globalCreators.loading(false));
+
 }
 
 function* calcTotalHoursBank(comptimeList) {
@@ -93,19 +101,25 @@ function* timeConvert(n) {
 function* putComptimeList(action) {
   yield put(globalCreators.loading(true));
   let { idUsuario, ano, mes, id, comptimeList } = action.payload;
-  // console.log(id)
-  yield call(
-    rsfb.firestore.updateDocument,
-    `usuarios/${idUsuario}/${ano}${mes}/${id}`,
-    { comptimeList }
-  );
-  yield put(
-    globalCreators.message({ type: "positive", text: "Comptime List updated!" })
-  );
-  yield delay(1000);
-  yield put(globalCreators.message({ type: "", text: "" }));
-  yield getComptimeList(action);
-  yield put(comptimeCreators.setShowingForm(false));
+  // Alert.alert(id)
+  try {
+    yield call(
+        rsfb.firestore.updateDocument,
+        `usuarios/${idUsuario}/${ano}${mes}/${id}`,
+        { comptimeList }
+      );
+      yield put(
+        globalCreators.message({ type: "positive", text: "Comptime List updated!" })
+      );
+      yield delay(1000);
+      yield put(globalCreators.message({ type: "", text: "" }));
+      yield getComptimeList(action);
+      yield put(comptimeCreators.setShowingForm(false));      
+  } catch (error) {
+      Alert.alert(error)
+    yield put(globalCreators.loading(false));    
+  }
+
 }
 
 function* createNewComptimeList(action) {
@@ -126,10 +140,16 @@ function* createNewComptimeList(action) {
     };
     comptimeList.push(item);
   }
-  yield call(rsfb.firestore.addDocument, `usuarios/${idUsuario}/${ano}${mes}`, {
-    comptimeList
-  });
-  yield getComptimeList(action);
+  try {
+    yield call(rsfb.firestore.addDocument, `usuarios/${idUsuario}/${ano}${mes}`, {
+        comptimeList
+      });
+      yield getComptimeList(action);
+  } catch (error) {
+    Alert.alert(error)
+    yield put(globalCreators.loading(false));    
+  }
+
 }
 
 export default [
