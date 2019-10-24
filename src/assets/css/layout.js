@@ -12,11 +12,10 @@ export const container = {
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,                  
+    elevation: 5,           
 }
 
 export const verticalCenter = {
-    marginTop: -50,
     flex: 1,
     justifyContent: 'center',    
 }

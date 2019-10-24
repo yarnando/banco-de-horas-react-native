@@ -24,7 +24,7 @@ const AuthStack = createStackNavigator({
         transparentCard:true, //faz o componente que envolve os componentes de navegação aparecer
       defaultNavigationOptions: ({ navigation }) => ({
         headerTitle: <Navbar nav={navigation}/>,
-        headerBackTitleVisible: false,    
+        headerBackTitleVisible: false,   
     })
 });
 
@@ -40,6 +40,9 @@ const MainStack = createStackNavigator({
         transparentCard:true, //faz o componente que envolve os componentes de navegação aparecer
       defaultNavigationOptions: ({ navigation }) => ({
           headerLeft: null,
+          headerTitleStyle: {
+            height: 200,
+        },       
         headerTitle: <Navbar nav={navigation}/>    
     })
 });

@@ -3,20 +3,30 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-// import { Container } from './styles';
+import { creators as comptimeCreators } from "../../../../store/ducks/comptime";
+
+import { styles as commonStyles } from '../../../../assets/css'
+
+import { View, Text } from 'react-native'
 
 class List extends Component {
   render() {
-    return <div />;
+    return <View style={commonStyles.container}>
+        <Text>List</Text>
+    </View>;
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  comptimeList: state.comptime.comptimeList,
+  showingForm: state.comptime.showingForm,
+  loading: state.global.loading
+});
 
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(Actions, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(comptimeCreators, dispatch);
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  mapDispatchToProps
 )(List);

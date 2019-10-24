@@ -5,16 +5,29 @@ import { bindActionCreators } from 'redux'
 import { creators as authActions } from '../../../store/ducks/auth'
 
 import { styles as commonStyles } from '../../../assets/css'
+import {styles} from './styles'
 
-import { View } from 'react-native'
+import { View, SafeAreaView, ScrollView } from 'react-native'
 
 import Menu from './components/Menu'
+import List from './components/List'
 
 class Comptime extends Component {
   render() {
-    return <View style={commonStyles.verticalCenter}>
-        <Menu/>
-    </View>;
+    return <SafeAreaView style={[commonStyles.verticalCenter, commonStyles.container, styles.main]}>
+                <ScrollView>
+
+                    <Menu/>
+                    <List/>
+                            <List/>
+                            <List/>
+                            <List/>
+                            <List/>
+                            <List/>
+                            <List/>
+                </ScrollView>
+        
+    </SafeAreaView>;
   }
 }
 

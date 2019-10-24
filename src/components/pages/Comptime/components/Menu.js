@@ -74,7 +74,7 @@ class Menu extends Component {
          
 
   render() {
-    return <View style={commonStyles.container}>
+    return <View>
             <View style={commonStyles.formGroup}>
                   <Text style={commonStyles.inputLabel}>
                     Ano
