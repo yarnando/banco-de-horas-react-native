@@ -11,6 +11,8 @@ export const styles = StyleSheet.create({
         fontSize: 15
     },      
     listItemRow: { 
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center', 
         marginVertical: 3
     }     

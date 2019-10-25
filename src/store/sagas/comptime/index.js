@@ -23,7 +23,7 @@ function* getComptimeList(action) {
         comptimeList = [...comptimeList, ...comptime];
       });
       // Alert.alert(comptimeId)
-      Alert.alert(JSON.stringify(comptimeList))
+    //   Alert.alert(JSON.stringify(comptimeList))
       if (!!comptimeList.length) {
         yield put(comptimeCreators.setComptimeListId(comptimeId));
         yield put(comptimeCreators.setComptimeList(comptimeList));

@@ -15,34 +15,27 @@ class List extends Component {
   render() {
     return !!this.props.comptimeList.length && 
     
-                <View style={commonStyles.container}>
+                this.props.comptimeList.map((comptime, index) => (
+                        <Card
+                        key={index}
+                            header={
+                                <Text style={styles.listItemHeader}>{comptime.day}</Text>
+                        }>              
+                            <View style={styles.listItemRow}>
+                                <Text style={ styles.listItemSubHeader }>Entrada</Text>
+                                <Text>{comptime.startingTime}</Text>
+                            </View>                   
+                            <View style={ styles.listItemRow }>
+                                <Text style={ styles.listItemSubHeader }>Almoço</Text>
+                                <Text>De {comptime.lunchStart} até {comptime.lunchEnd}</Text>
+                            </View>                                    
+                            <View style={ styles.listItemRow }>
+                                <Text style={ styles.listItemSubHeader }>Saída</Text>
+                                <Text>{comptime.lunchEnd}</Text>
+                            </View>                                  
+                        </Card>
+                    ))
                 
-                        {this.props.comptimeList.map((comptime, index) => (
-                            <Card
-                            key={index}
-                                header={
-                                    <Text style={styles.listItemHeader}>{comptime.day}</Text>
-                            }>              
-                                <View style={styles.listItemRow}>
-                                    <Text style={ { fontWeight: 'bold', fontSize: 15 }}>Entrada</Text>
-                                    <Text>{comptime.startingTime}</Text>
-                                </View>                   
-                                <View style={ styles.listItemRow }>
-                                    <Text style={ { fontWeight: 'bold', fontSize: 15 }}>Entrada do almoço</Text>
-                                    <Text>{comptime.lunchStart}</Text>
-                                </View>                   
-                                <View style={ styles.listItemRow }>
-                                    <Text style={ { fontWeight: 'bold', fontSize: 15 }}>Saída do almoço</Text>
-                                    <Text>{comptime.lunchEnd}</Text>
-                                </View>                   
-                                <View style={ styles.listItemRow }>
-                                    <Text style={ { fontWeight: 'bold', fontSize: 15 }}>Saída</Text>
-                                    <Text>{comptime.lunchEnd}</Text>
-                                </View>                                  
-                            </Card>
-                        ))
-                    }
-                </View>
   }
 }
 
