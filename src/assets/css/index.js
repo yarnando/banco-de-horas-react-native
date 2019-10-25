@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {container, verticalCenter, sectionHeaderContainer, sectionHeaderText} from './layout';
+import {container, verticalCenter, sectionHeaderContainer, sectionHeaderText, inline} from './layout';
 import {formGroup, input, inputError, label, picker} from './form';
 import {
   button,
@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
   verticalCenter,
   sectionHeaderContainer,
   sectionHeaderText,
+  inline,
   button,
   buttonPrimary,
   buttonSuccess,

@@ -29,3 +29,7 @@ export const sectionHeaderText = {
     marginLeft: 5,
     paddingBottom: 5
 }
+
+export const inline = {
+    flexDirection: 'row',
+}

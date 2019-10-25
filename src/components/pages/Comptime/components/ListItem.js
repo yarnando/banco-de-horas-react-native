@@ -9,10 +9,10 @@ import { styles as commonStyles } from '../../../../assets/css'
 
 import { View, Text } from 'react-native'
 
-class List extends Component {
+class ListItem extends Component {
   render() {
     return <View style={commonStyles.container}>
-        <Text>List</Text>
+        <Text>ListItem</Text>
     </View>;
   }
 }
@@ -29,4 +29,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(List);
+)(ListItem);

@@ -1,4 +1,5 @@
 export const formGroup = {
+    flex: 1,
     marginHorizontal: 5,    
     marginVertical: 5,    
 }

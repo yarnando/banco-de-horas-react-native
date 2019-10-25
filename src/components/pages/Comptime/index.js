@@ -10,7 +10,7 @@ import {styles} from './styles'
 import { View, SafeAreaView, ScrollView } from 'react-native'
 
 import Menu from './components/Menu'
-import List from './components/List'
+import ListItem from './components/ListItem'
 
 class Comptime extends Component {
   render() {
@@ -18,13 +18,13 @@ class Comptime extends Component {
                 <ScrollView>
 
                     <Menu/>
-                    <List/>
-                            <List/>
-                            <List/>
-                            <List/>
-                            <List/>
-                            <List/>
-                            <List/>
+                    <ListItem/>
+                            <ListItem/>
+                            <ListItem/>
+                            <ListItem/>
+                            <ListItem/>
+                            <ListItem/>
+                            <ListItem/>
                 </ScrollView>
         
     </SafeAreaView>;
