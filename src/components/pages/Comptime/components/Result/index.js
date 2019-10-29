@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-
-import { bindActionCreators } from 'redux';
+import { View, Text } from 'react-native'
 import { connect } from 'react-redux';
 
-// import { Container } from './styles';
+import {styles} from './style'
 
 class Result extends Component {
   render() {
-    return <div />;
+    return <View style={styles.resultContainer}>
+        <Text style={styles.resultText}>Saldo Atual:</Text>
+        <Text style={styles.resultText}>{`${this.props.hoursBank.hours || "00"}h ${this.props.hoursBank.minutes || "00"}m`}</Text>
+    </View>;
   }
 }
 
-const mapStateToProps = state => ({});
-
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(Actions, dispatch);
+const mapStateToProps = state => ({
+    hoursBank: state.comptime.hoursBank
+});
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
 )(Result);

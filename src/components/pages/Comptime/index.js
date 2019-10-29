@@ -11,12 +11,14 @@ import { View, SafeAreaView, ScrollView } from 'react-native'
 
 import Menu from './components/Menu'
 import List from './components/List'
+import Result from './components/Result'
 
 class Comptime extends Component {
   render() {
     return <SafeAreaView style={[commonStyles.container, styles.main]}>
                 <ScrollView>
                     <Menu/>
+                    <Result/>
                     <List/>
                 </ScrollView>
         
